@@ -8,18 +8,21 @@ local head = plr.Character:WaitForChild("Head")
 plr.CharacterAdded:Connect(function(chr)
     head = chr:WaitForChild("Head")
 end)
-local function IsFirstPerson()
+
+local fov = camera.FieldOfView
+
+local function isFirstPerson()
     return (head.CFrame.p - camera.CFrame.p).Magnitude < 1
 end
 
 local mouse = game.Players.LocalPlayer:GetMouse()
 mouse.WheelForward:Connect(function()
     if not getgenv().zooming then return end
-    if IsFirstPerson() then
+    if isFirstPerson() then
         camera.FieldOfView = camera.FieldOfView - 1
     end
 end)
 mouse.WheelBackward:Connect(function()
     if not getgenv().zooming then return end
-    camera.FieldOfView = 70
+    camera.FieldOfView = fov
 end)
